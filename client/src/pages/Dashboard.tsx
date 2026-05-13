@@ -87,6 +87,9 @@ const Dashboard: React.FC = () => {
           <p style={{ margin: '4px 0 0', color: '#888' }}>今天也要加油背单词哦</p>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
+          <button onClick={() => navigate('/search')} style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid #6c63ff', backgroundColor: '#fff', color: '#6c63ff', cursor: 'pointer' }}>
+            🔍 搜词
+          </button>
           <button onClick={() => navigate('/vocabulary')} style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid #6c63ff', backgroundColor: '#fff', color: '#6c63ff', cursor: 'pointer' }}>
             词库
           </button>

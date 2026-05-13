@@ -10,6 +10,8 @@ export function createVocabularyRoutes(db: Db) {
   const vocabularyController = new VocabularyController(vocabularyService);
 
   router.get('/', (req, res) => vocabularyController.list(req, res));
+  router.get('/search/words', (req, res) => vocabularyController.searchWords(req, res));
+  router.get('/words/:id', (req, res) => vocabularyController.getWordDetail(req, res));
   router.get('/:id', (req, res) => vocabularyController.get(req, res));
   router.get('/:id/words', (req, res) => vocabularyController.getWords(req, res));
   router.post('/', authMiddleware, (req, res) => vocabularyController.create(req as AuthRequest, res));

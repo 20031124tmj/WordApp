@@ -77,6 +77,23 @@ export class VocabularyController {
     return success(res, data);
   }
 
+  async searchWords(req: Request, res: Response) {
+    const { q, page, page_size } = req.query;
+    if (!q) return error(res, 'VALIDATION_ERROR', '请提供搜索关键词', 400);
+    const result = await this.vocabularyService.searchWords(
+      q as string,
+      Number(page) || 1,
+      Number(page_size) || 20
+    );
+    return success(res, result);
+  }
+
+  async getWordDetail(req: Request, res: Response) {
+    const data = await this.vocabularyService.getWordDetail(req.params.id as string);
+    if (!data) return error(res, 'NOT_FOUND', '单词不存在', 404);
+    return success(res, data);
+  }
+
   async subscribe(req: AuthRequest, res: Response) {
     try {
       await this.vocabularyService.subscribe(req.userId!, req.params.id as string);

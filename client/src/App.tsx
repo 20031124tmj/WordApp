@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Learn from './pages/Learn';
 import Review from './pages/Review';
 import Vocabulary from './pages/Vocabulary';
+import WordSearch from './pages/WordSearch';
 import Stats from './pages/Stats';
 import Achievements from './pages/Achievements';
 import Settings from './pages/Settings';
@@ -21,6 +22,7 @@ const App: React.FC = () => {
           <Route path="/learn" element={<Learn />} />
           <Route path="/review" element={<Review />} />
           <Route path="/vocabulary" element={<Vocabulary />} />
+          <Route path="/search" element={<WordSearch />} />
           <Route path="/stats" element={<Stats />} />
           <Route path="/achievements" element={<Achievements />} />
           <Route path="/settings" element={<Settings />} />

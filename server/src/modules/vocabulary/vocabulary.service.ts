@@ -172,6 +172,34 @@ export class VocabularyService {
     }
   }
 
+  async searchWords(query: string, page: number = 1, pageSize: number = 20) {
+    let qb = this.db('words');
+    if (query) {
+      qb = qb.where('word', 'like', `${query}%`);
+    }
+    const total = await qb.clone().count('* as count').first();
+    const rows = await qb
+      .orderBy('word', 'asc')
+      .offset((page - 1) * pageSize)
+      .limit(pageSize);
+    const words = rows.map((w: any) => {
+      if (w.definitions && typeof w.definitions === 'string') {
+        try { w.definitions = JSON.parse(w.definitions); } catch { w.definitions = []; }
+      }
+      return w;
+    });
+    return { data: words, total: Number(total?.count || 0), page, page_size: pageSize };
+  }
+
+  async getWordDetail(wordId: string) {
+    const w = await this.db('words').where({ id: wordId }).first();
+    if (!w) return null;
+    if (w.definitions && typeof w.definitions === 'string') {
+      try { w.definitions = JSON.parse(w.definitions); } catch { w.definitions = []; }
+    }
+    return w;
+  }
+
   async unsubscribe(userId: string, wordBookId: string) {
     await this.db('user_word_progress')
       .where({ user_id: userId, word_book_id: wordBookId })
